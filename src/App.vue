@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import RollingNumber from './components/RollingNumber.vue'
+import RollingNumber from './components/RollingNumber.vue';
+import { ref, onMounted } from 'vue';
 
-const value = ref<number>(0);
+const number = ref(0);
+
+// 천 단위 쉼표 포함 포맷
+const formatNumber = (val: string | number) =>
+    val.toLocaleString('en-US', { minimumFractionDigits: 0 });
 
 onMounted(() => {
   setInterval(() => {
-    value.value = Math.floor(Math.random() * 10000);
+    number.value = Math.floor(Math.random() * 100000);
   }, 2000);
 });
 </script>
 
 <template>
-  <RollingNumber :number="value" :minDigits="1" />
+  <RollingNumber :value="number" direction="down" :digitHeight="40" />
+  {{ number }}
 </template>
 
