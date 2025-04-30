@@ -31,12 +31,13 @@ const props = withDefaults(
     }
 );
 
-const digits = computed(() => {
-  return String(props.value)
-      .padStart(1, '0')
-      .split('')
-      .map((d) => (/\d/.test(d) ? Number(d) : d));
-});
+// 안전하게 숫자 및 쉼표 분리
+function formatToDigitArray(val: number): (number | string)[] {
+  const str = val.toLocaleString('en-US');
+  return Array.from(str).map((char) => (/\d/.test(char) ? Number(char) : char));
+}
+
+const digits = computed(() => formatToDigitArray(props.value));
 </script>
 
 <style scoped>
@@ -49,5 +50,6 @@ const digits = computed(() => {
 .non-digit {
   font-size: 32px;
   font-weight: bold;
+  padding: 0 2px;
 }
 </style>
