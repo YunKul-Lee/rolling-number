@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <RollingNumber :value="number" direction="down" :digitHeight="40" />
+  <RollingNumber :number="number" direction="down" :digitHeight="40" />
   {{ number }}
 </template>
 
